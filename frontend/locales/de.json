@@ -1,0 +1,70 @@
+{
+  "nav": {"login": "Anmelden", "start": "Kostenlos starten"},
+  "hero": {
+    "badge": "100% automatisiert — Kein Vertriebsteam nötig",
+    "title": "Ihre B2B-Lead-Maschine läuft, während Sie schlafen",
+    "subtitle": "AutoGrowth Pro generiert qualifizierte Leads, sendet personalisierte Kaltakquise-E-Mails und folgt automatisch nach — ganz ohne Aufwand.",
+    "cta_primary": "14 Tage kostenlos testen →",
+    "cta_secondary": "So funktioniert es",
+    "no_card": "Keine Kreditkarte • Erste Leads in 72h"
+  },
+  "stats": {
+    "open_rate": "Durchschnittliche Öffnungsrate",
+    "reply_rate": "Durchschnittliche Antwortrate",
+    "avg_value": "Durchschnittlicher Kundenwert",
+    "first_lead": "Zeit bis zum ersten Lead"
+  },
+  "how": {
+    "title": "So funktioniert es",
+    "steps": [
+      {"title": "Zielgruppe konfigurieren", "desc": "Branche, Standort, Keywords — unsere KI weiß genau, wo sie suchen muss."},
+      {"title": "KI generiert Ihre Leads", "desc": "Google Maps, Verzeichnisse, Datenbanken — automatisches Scraping jede Nacht."},
+      {"title": "Personalisierte E-Mails versandt", "desc": "4-E-Mail-Sequenzen, KI-personalisiert, automatisch versandt."},
+      {"title": "Sie erhalten die Antworten", "desc": "Interessierte Interessenten antworten direkt. Sie müssen nur noch abschließen."}
+    ]
+  },
+  "pricing": {
+    "title": "Transparente Preise",
+    "subtitle": "Jederzeit kündbar. Keine versteckten Kosten.",
+    "popular": "AM BELIEBTESTEN",
+    "per_month": "/Monat",
+    "cta": "Starten — {plan}"
+  },
+  "plans": {
+    "starter": {"name": "Starter", "leads": "100 Leads/Monat", "campaigns": "1 Kampagne", "features": ["Automatische Lead-Generierung", "KI-E-Mail-Akquise", "Analyse-Dashboard", "E-Mail-Support"]},
+    "growth":  {"name": "Growth",  "leads": "500 Leads/Monat", "campaigns": "5 Kampagnen", "features": ["Alles aus Starter +", "KI-Content-Erstellung", "Mehrstufige Sequenzen", "Automatische Monatsberichte", "Prioritäts-Support"]},
+    "pro":     {"name": "Pro",     "leads": "Unbegrenzte Leads", "campaigns": "Unbegrenzte Kampagnen", "features": ["Alles aus Growth +", "Automatische LinkedIn-Posts", "Erweitertes KI-Lead-Scoring", "CRM-Integrationen", "Dedizierter 24/7-Support"]}
+  },
+  "cta_section": {
+    "title": "Bereit, Ihr Wachstum zu automatisieren?",
+    "subtitle": "Schließen Sie sich Unternehmen an, die 24/7 ohne Aufwand akquirieren.",
+    "button": "Kostenlos starten →"
+  },
+  "auth": {
+    "login_title": "Anmelden",
+    "register_title": "Konto erstellen",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "full_name": "Vollständiger Name",
+    "login_btn": "Anmelden →",
+    "register_btn": "Mein Konto erstellen →",
+    "no_account": "Noch kein Konto?",
+    "has_account": "Bereits ein Konto?",
+    "create_link": "Konto erstellen",
+    "login_link": "Anmelden"
+  },
+  "dashboard": {
+    "overview": "Übersicht",
+    "automations": "Aktive Automatisierungen",
+    "leads_total": "Leads gesamt",
+    "leads_month": "Leads diesen Monat",
+    "emails_sent": "Versendete E-Mails",
+    "open_rate": "Öffnungsrate",
+    "reply_rate": "Antwortrate",
+    "conversions": "Konversionen"
+  },
+  "compliance": {
+    "unsubscribe": "Abmelden",
+    "gdpr_notice": "Sie können sich gemäß DSGVO jederzeit abmelden."
+  }
+}

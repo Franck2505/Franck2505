@@ -26,9 +26,12 @@ export default api;
 export const auth = {
   login: (email: string, password: string) =>
     api.post("/auth/login", new URLSearchParams({ username: email, password })),
-  register: (email: string, password: string, full_name: string) =>
-    api.post("/auth/register", { email, password, full_name }),
+  register: (email: string, password: string, full_name: string, country = "FR", language = "fr") =>
+    api.post("/auth/register", { email, password, full_name, country, language }),
   me: () => api.get("/auth/me"),
+  countries: () => api.get("/auth/countries"),
+  updateLocale: (country?: string, language?: string) =>
+    api.patch("/auth/me/locale", {}, { params: { country, language } }),
 };
 
 export const billing = {

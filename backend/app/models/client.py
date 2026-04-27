@@ -31,6 +31,12 @@ class Client(Base):
     target_keywords = Column(JSON, default=list)
     website = Column(String, nullable=True)
     is_active = Column(Boolean, default=True)
+
+    # Internationalisation
+    country = Column(String(2), default="FR")          # target country for lead scraping
+    language = Column(String(5), default="fr")         # language for AI-generated emails
+    timezone = Column(String(50), default="Europe/Paris")  # optimal send-time window
+
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     owner = relationship("User", back_populates="clients")

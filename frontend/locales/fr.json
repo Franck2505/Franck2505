@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "login": "Connexion",
+    "start": "Démarrer gratuitement"
+  },
+  "hero": {
+    "badge": "100% automatisé — Aucun commercial requis",
+    "title": "Votre machine à leads B2B tourne pendant que vous dormez",
+    "subtitle": "AutoGrowth Pro génère des leads qualifiés, envoie des emails de prospection personnalisés et relance automatiquement — sans lever le petit doigt.",
+    "cta_primary": "Essai gratuit 14 jours →",
+    "cta_secondary": "Voir comment ça marche",
+    "no_card": "Sans carte bancaire • Résultats en 72h"
+  },
+  "stats": {
+    "open_rate": "Taux d'ouverture moyen",
+    "reply_rate": "Taux de réponse moyen",
+    "avg_value": "Valeur client moyenne",
+    "first_lead": "Délai premier lead"
+  },
+  "how": {
+    "title": "Comment ça fonctionne",
+    "steps": [
+      {"title": "Configurez votre cible", "desc": "Secteur, zone géographique, mots-clés — notre IA sait exactement où chercher."},
+      {"title": "L'IA génère vos leads", "desc": "Google Maps, annuaires, bases de données — scraping automatique chaque nuit."},
+      {"title": "Emails personnalisés envoyés", "desc": "Séquences de 4 emails ultra-personnalisés générés et envoyés automatiquement."},
+      {"title": "Vous récoltez les réponses", "desc": "Les prospects intéressés répondent directement. Vous n'avez plus qu'à closer."}
+    ]
+  },
+  "pricing": {
+    "title": "Tarifs transparents",
+    "subtitle": "Annulez à tout moment. Pas de frais cachés.",
+    "popular": "PLUS POPULAIRE",
+    "per_month": "/mois",
+    "cta": "Démarrer — {plan}"
+  },
+  "plans": {
+    "starter": {"name": "Starter", "leads": "100 leads/mois", "campaigns": "1 campagne", "features": ["Génération de leads automatique", "Prospection email IA", "Dashboard analytics", "Support email"]},
+    "growth":  {"name": "Growth",  "leads": "500 leads/mois", "campaigns": "5 campagnes", "features": ["Tout Starter +", "Création de contenu IA", "Séquences multi-étapes", "Rapports mensuels auto", "Support prioritaire"]},
+    "pro":     {"name": "Pro",     "leads": "Leads illimités", "campaigns": "Campagnes illimitées", "features": ["Tout Growth +", "Posts LinkedIn automatiques", "Scoring leads IA avancé", "Intégrations CRM", "Support dédié 24/7"]}
+  },
+  "cta_section": {
+    "title": "Prêt à automatiser votre croissance ?",
+    "subtitle": "Rejoignez les entreprises qui prospectent 24h/24 sans effort.",
+    "button": "Commencer l'essai gratuit →"
+  },
+  "auth": {
+    "login_title": "Connexion",
+    "register_title": "Créer votre compte",
+    "email": "Email",
+    "password": "Mot de passe",
+    "full_name": "Nom complet",
+    "login_btn": "Se connecter →",
+    "register_btn": "Créer mon compte →",
+    "no_account": "Pas encore de compte ?",
+    "has_account": "Déjà un compte ?",
+    "create_link": "Créer un compte",
+    "login_link": "Se connecter"
+  },
+  "dashboard": {
+    "overview": "Vue d'ensemble",
+    "automations": "Automatisations actives",
+    "leads_total": "Leads total",
+    "leads_month": "Leads ce mois",
+    "emails_sent": "Emails envoyés",
+    "open_rate": "Taux d'ouverture",
+    "reply_rate": "Taux de réponse",
+    "conversions": "Conversions"
+  },
+  "compliance": {
+    "unsubscribe": "Se désinscrire",
+    "gdpr_notice": "Conformément au RGPD, vous pouvez vous désinscrire à tout moment."
+  }
+}
