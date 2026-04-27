@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Boolean, DateTime, Enum, Integer, ForeignKey, JSON
-from sqlalchemy.dialects.postgresql import UUID
+from app.models.base_types import GUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import uuid
@@ -23,8 +23,8 @@ class BusinessSector(str, enum.Enum):
 class Client(Base):
     __tablename__ = "clients"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    owner_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    owner_id = Column(GUID(), ForeignKey("users.id"), nullable=False)
     business_name = Column(String, nullable=False)
     sector = Column(Enum(BusinessSector), nullable=False)
     target_location = Column(String)

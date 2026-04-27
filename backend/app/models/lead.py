@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, DateTime, Enum, ForeignKey, Float, Boolean
-from sqlalchemy.dialects.postgresql import UUID
+from app.models.base_types import GUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import uuid
@@ -27,8 +27,8 @@ class LeadSource(str, enum.Enum):
 class Lead(Base):
     __tablename__ = "leads"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    client_id = Column(UUID(as_uuid=True), ForeignKey("clients.id"), nullable=False)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    client_id = Column(GUID(), ForeignKey("clients.id"), nullable=False)
     business_name = Column(String)
     contact_name = Column(String, nullable=True)
     email = Column(String, nullable=True)
