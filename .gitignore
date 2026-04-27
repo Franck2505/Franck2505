@@ -1,0 +1,12 @@
+.env
+*.pyc
+__pycache__/
+.venv/
+venv/
+node_modules/
+.next/
+*.log
+*.sqlite3
+nginx/certs/
+.DS_Store
+dist/
