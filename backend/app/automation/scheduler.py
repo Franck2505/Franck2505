@@ -15,6 +15,7 @@ def start_scheduler():
     from app.automation.lead_pipeline import run_lead_generation
     from app.automation.email_pipeline import run_email_campaigns
     from app.automation.billing_pipeline import run_monthly_reports, run_subscription_health_check
+    from app.automation.onboarding_pipeline import run_onboarding_emails
 
     # Generate leads every day at 03:00
     scheduler.add_job(
@@ -45,6 +46,14 @@ def start_scheduler():
         run_subscription_health_check,
         CronTrigger(hour=6, minute=0),
         id="subscription_health",
+        replace_existing=True,
+    )
+
+    # Onboarding emails daily at 09:00
+    scheduler.add_job(
+        run_onboarding_emails,
+        CronTrigger(hour=9, minute=0),
+        id="onboarding_emails",
         replace_existing=True,
     )
 
