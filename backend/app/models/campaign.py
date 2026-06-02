@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, DateTime, Enum, ForeignKey, Integer, Boolean, Text, JSON
-from sqlalchemy.dialects.postgresql import UUID
+from app.models.base_types import GUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import uuid
@@ -27,8 +27,8 @@ class EmailStatus(str, enum.Enum):
 class Campaign(Base):
     __tablename__ = "campaigns"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    client_id = Column(UUID(as_uuid=True), ForeignKey("clients.id"), nullable=False)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    client_id = Column(GUID(), ForeignKey("clients.id"), nullable=False)
     name = Column(String, nullable=False)
     status = Column(Enum(CampaignStatus), default=CampaignStatus.DRAFT)
     sequence_days = Column(JSON, default=lambda: [0, 3, 7, 14])  # follow-up intervals
@@ -48,9 +48,9 @@ class Campaign(Base):
 class CampaignEmail(Base):
     __tablename__ = "campaign_emails"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    campaign_id = Column(UUID(as_uuid=True), ForeignKey("campaigns.id"), nullable=False)
-    lead_id = Column(UUID(as_uuid=True), ForeignKey("leads.id"), nullable=False)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    campaign_id = Column(GUID(), ForeignKey("campaigns.id"), nullable=False)
+    lead_id = Column(GUID(), ForeignKey("leads.id"), nullable=False)
     sequence_step = Column(Integer, default=0)
     status = Column(Enum(EmailStatus), default=EmailStatus.PENDING)
     subject = Column(String)

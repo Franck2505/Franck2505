@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, Boolean, DateTime, Enum, Integer, ForeignKey, Numeric
-from sqlalchemy.dialects.postgresql import UUID
+from app.models.base_types import GUID
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import uuid
@@ -30,8 +30,8 @@ PLAN_LIMITS = {
 class Subscription(Base):
     __tablename__ = "subscriptions"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False, unique=True)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    user_id = Column(GUID(), ForeignKey("users.id"), nullable=False, unique=True)
     plan = Column(Enum(PlanType), nullable=False)
     status = Column(Enum(SubscriptionStatus), default=SubscriptionStatus.TRIALING)
     stripe_subscription_id = Column(String, unique=True, nullable=True)

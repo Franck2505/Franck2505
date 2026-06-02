@@ -26,9 +26,12 @@ export default api;
 export const auth = {
   login: (email: string, password: string) =>
     api.post("/auth/login", new URLSearchParams({ username: email, password })),
-  register: (email: string, password: string, full_name: string) =>
-    api.post("/auth/register", { email, password, full_name }),
+  register: (email: string, password: string, full_name: string, country = "FR", language = "fr") =>
+    api.post("/auth/register", { email, password, full_name, country, language }),
   me: () => api.get("/auth/me"),
+  countries: () => api.get("/auth/countries"),
+  updateLocale: (country?: string, language?: string) =>
+    api.patch("/auth/me/locale", {}, { params: { country, language } }),
 };
 
 export const billing = {
@@ -55,4 +58,27 @@ export const campaigns = {
 
 export const analytics = {
   dashboard: () => api.get("/analytics/dashboard"),
+};
+
+export const adminApi = {
+  metrics: () => api.get("/admin/metrics"),
+  cohorts: () => api.get("/admin/cohorts"),
+  users: (search?: string) => api.get("/admin/users", { params: search ? { search } : {} }),
+  revenue30d: () => api.get("/admin/revenue/30d"),
+  setRole: (userId: string, role: string) => api.patch(`/admin/users/${userId}/role`, null, { params: { role } }),
+  impersonate: (userId: string) => api.post(`/admin/users/${userId}/impersonate`),
+};
+
+export const affiliateApi = {
+  join: () => api.post("/affiliate/join"),
+  dashboard: () => api.get("/affiliate/dashboard"),
+  requestPayout: () => api.post("/affiliate/request-payout"),
+};
+
+export const webhooksApi = {
+  list: () => api.get("/webhooks/"),
+  create: (data: { url: string; events: string[]; secret?: string }) => api.post("/webhooks/", data),
+  update: (id: string, data: object) => api.patch(`/webhooks/${id}`, data),
+  delete: (id: string) => api.delete(`/webhooks/${id}`),
+  events: () => api.get("/webhooks/events"),
 };

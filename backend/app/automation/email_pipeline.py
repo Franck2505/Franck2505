@@ -1,21 +1,36 @@
 """
 Automated email campaign pipeline.
-Every 30 minutes: find due emails → generate personalized copy → send.
+Every 30 min: finds due emails → generates multilingual copy → sends with compliance footer.
+Respects timezone-aware optimal send windows.
 """
 import logging
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 from app.database import SessionLocal
 from app.models.campaign import Campaign, CampaignEmail, EmailStatus, CampaignStatus
 from app.models.lead import Lead, LeadStatus
 from app.services.ai_service import generate_cold_email
-from app.services.email_service import send_email
+from app.services.email_service import send_email, build_unsubscribe_url, _build_full_body
+from app.i18n.locales import OPTIMAL_SEND_HOURS, get_country_config
 
 logger = logging.getLogger(__name__)
 MAX_EMAILS_PER_RUN = 200
 
 
+def _is_good_send_time(timezone_str: str) -> bool:
+    """Return True if current local time is within business hours (Mon-Fri, 8-18h)."""
+    try:
+        tz = ZoneInfo(timezone_str)
+        local_now = datetime.now(tz)
+        if local_now.weekday() >= 5:  # Sat/Sun
+            return False
+        return 8 <= local_now.hour < 18
+    except Exception:
+        return True  # fail open
+
+
 async def run_email_campaigns():
-    logger.info("[email_pipeline] Starting email send batch")
+    logger.info("[email_pipeline] Starting send batch")
     db = SessionLocal()
     sent_count = 0
 
@@ -36,6 +51,12 @@ async def run_email_campaigns():
         for campaign_email in due_emails:
             lead = campaign_email.lead
             campaign = campaign_email.campaign
+            client = campaign.client
+
+            # Respect local business hours of the target country
+            client_tz = client.timezone or "UTC"
+            if not _is_good_send_time(client_tz):
+                continue
 
             if not lead.email or not lead.is_email_verified:
                 campaign_email.status = EmailStatus.BOUNCED
@@ -43,22 +64,30 @@ async def run_email_campaigns():
                 continue
 
             try:
+                lang = client.language or "fr"
+                country = client.country or "FR"
+
                 generated = generate_cold_email(
-                    sender_business=campaign.client.business_name,
+                    sender_business=client.business_name,
                     prospect_name=lead.contact_name or "",
                     prospect_business=lead.business_name,
-                    sector=campaign.client.sector.value,
+                    sector=client.sector.value,
                     sequence_step=campaign_email.sequence_step,
+                    language=lang,
                 )
 
                 subject = generated["subject"]
-                body = _html_wrap(generated["body"])
+                raw_body = _html_wrap(generated["body"])
+                unsub_url = build_unsubscribe_url(str(lead.id), str(campaign_email.id))
 
                 ok = send_email(
                     to_email=lead.email,
                     subject=subject,
-                    body_html=body,
+                    body_html=raw_body,
                     tracking_id=campaign_email.tracking_id,
+                    language=lang,
+                    country=country,
+                    unsubscribe_url=unsub_url,
                 )
 
                 campaign_email.status = EmailStatus.SENT if ok else EmailStatus.BOUNCED
@@ -72,10 +101,10 @@ async def run_email_campaigns():
                         lead.status = LeadStatus.CONTACTED
 
                     # Schedule next follow-up
-                    sequence_days = campaign.sequence_days or [0, 3, 7, 14]
+                    seq = campaign.sequence_days or [0, 3, 7, 14]
                     next_step = campaign_email.sequence_step + 1
-                    if next_step < len(sequence_days):
-                        delay = sequence_days[next_step] - sequence_days[campaign_email.sequence_step]
+                    if next_step < len(seq):
+                        delay = seq[next_step] - seq[campaign_email.sequence_step]
                         _schedule_followup(db, campaign, lead, next_step, now + timedelta(days=delay))
 
                     sent_count += 1
@@ -83,7 +112,7 @@ async def run_email_campaigns():
                 db.commit()
 
             except Exception as e:
-                logger.error("[email_pipeline] email_id=%s error=%s", campaign_email.id, e)
+                logger.error("[email_pipeline] id=%s error=%s", campaign_email.id, e)
                 db.rollback()
 
     finally:
@@ -93,53 +122,43 @@ async def run_email_campaigns():
 
 
 def _schedule_followup(db, campaign: Campaign, lead: Lead, step: int, scheduled_at: datetime):
-    existing = db.query(CampaignEmail).filter(
+    if db.query(CampaignEmail).filter(
         CampaignEmail.campaign_id == campaign.id,
         CampaignEmail.lead_id == lead.id,
         CampaignEmail.sequence_step == step,
-    ).first()
-    if existing:
+    ).first():
         return
-    followup = CampaignEmail(
+    db.add(CampaignEmail(
         campaign_id=campaign.id,
         lead_id=lead.id,
         sequence_step=step,
         status=EmailStatus.PENDING,
         scheduled_at=scheduled_at,
-    )
-    db.add(followup)
+    ))
 
 
 def _html_wrap(text: str) -> str:
     paragraphs = "".join(f"<p>{line}</p>" for line in text.split("\n") if line.strip())
-    return f"""
-    <div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6;color:#333;max-width:600px">
-        {paragraphs}
-    </div>
-    """
+    return f'<div style="font-size:14px;line-height:1.6;color:#333">{paragraphs}</div>'
 
 
 def enqueue_campaign_leads(campaign_id: str, db):
-    """Called when a campaign is activated — schedules step 0 for all leads."""
     campaign = db.query(Campaign).filter(Campaign.id == campaign_id).first()
     if not campaign:
         return
-
     leads = db.query(Lead).filter(
         Lead.client_id == campaign.client_id,
-        Lead.email != None,
+        Lead.email.isnot(None),
         Lead.is_email_verified == True,
         Lead.status == LeadStatus.NEW,
     ).all()
-
     now = datetime.utcnow()
     for lead in leads:
-        existing = db.query(CampaignEmail).filter(
+        if db.query(CampaignEmail).filter(
             CampaignEmail.campaign_id == campaign_id,
             CampaignEmail.lead_id == lead.id,
             CampaignEmail.sequence_step == 0,
-        ).first()
-        if existing:
+        ).first():
             continue
         db.add(CampaignEmail(
             campaign_id=campaign_id,

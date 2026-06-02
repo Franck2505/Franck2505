@@ -1,0 +1,70 @@
+{
+  "nav": {"login": "Log in", "start": "Start for free"},
+  "hero": {
+    "badge": "100% automated — No sales team needed",
+    "title": "Your B2B lead machine runs while you sleep",
+    "subtitle": "AutoGrowth Pro automatically generates qualified leads, sends personalized outreach emails, and follows up — all on autopilot.",
+    "cta_primary": "Start 14-day free trial →",
+    "cta_secondary": "See how it works",
+    "no_card": "No credit card • First leads in 72h"
+  },
+  "stats": {
+    "open_rate": "Average open rate",
+    "reply_rate": "Average reply rate",
+    "avg_value": "Average client value",
+    "first_lead": "Time to first lead"
+  },
+  "how": {
+    "title": "How it works",
+    "steps": [
+      {"title": "Configure your target", "desc": "Industry, location, keywords — our AI knows exactly where to look."},
+      {"title": "AI generates your leads", "desc": "Google Maps, directories, databases — automatic scraping every night."},
+      {"title": "Personalized emails sent", "desc": "4-email sequences, hyper-personalized by AI, sent automatically."},
+      {"title": "You collect the replies", "desc": "Interested prospects reply directly. You just have to close."}
+    ]
+  },
+  "pricing": {
+    "title": "Transparent pricing",
+    "subtitle": "Cancel anytime. No hidden fees.",
+    "popular": "MOST POPULAR",
+    "per_month": "/month",
+    "cta": "Start — {plan}"
+  },
+  "plans": {
+    "starter": {"name": "Starter", "leads": "100 leads/month", "campaigns": "1 campaign", "features": ["Automated lead generation", "AI email outreach", "Analytics dashboard", "Email support"]},
+    "growth":  {"name": "Growth",  "leads": "500 leads/month", "campaigns": "5 campaigns", "features": ["Everything in Starter +", "AI content creation", "Multi-step sequences", "Auto monthly reports", "Priority support"]},
+    "pro":     {"name": "Pro",     "leads": "Unlimited leads", "campaigns": "Unlimited campaigns", "features": ["Everything in Growth +", "Auto LinkedIn posts", "Advanced AI lead scoring", "CRM integrations", "Dedicated 24/7 support"]}
+  },
+  "cta_section": {
+    "title": "Ready to automate your growth?",
+    "subtitle": "Join businesses that prospect 24/7 without effort.",
+    "button": "Start free trial →"
+  },
+  "auth": {
+    "login_title": "Log in",
+    "register_title": "Create your account",
+    "email": "Email",
+    "password": "Password",
+    "full_name": "Full name",
+    "login_btn": "Log in →",
+    "register_btn": "Create my account →",
+    "no_account": "Don't have an account?",
+    "has_account": "Already have an account?",
+    "create_link": "Create account",
+    "login_link": "Log in"
+  },
+  "dashboard": {
+    "overview": "Overview",
+    "automations": "Active automations",
+    "leads_total": "Total leads",
+    "leads_month": "Leads this month",
+    "emails_sent": "Emails sent",
+    "open_rate": "Open rate",
+    "reply_rate": "Reply rate",
+    "conversions": "Conversions"
+  },
+  "compliance": {
+    "unsubscribe": "Unsubscribe",
+    "gdpr_notice": "You can unsubscribe at any time in accordance with applicable law."
+  }
+}
