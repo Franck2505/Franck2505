@@ -214,7 +214,7 @@ export default function Landing() {
       </section>
 
       <footer className="bg-gray-900 text-gray-400 py-8 text-center text-sm">
-        <p>© 2025 AutoGrowth Pro · <a href="/?lang=fr" className="hover:text-white">FR</a> · <a href="/?lang=en" className="hover:text-white">EN</a> · <a href="/?lang=es" className="hover:text-white">ES</a> · <a href="/?lang=de" className="hover:text-white">DE</a> · <a href="/?lang=it" className="hover:text-white">IT</a> · <a href="/?lang=pt" className="hover:text-white">PT</a></p>
+        <p>© 2025 AutoGrowth Pro · <Link href="/?lang=fr" className="hover:text-white">FR</Link> · <Link href="/?lang=en" className="hover:text-white">EN</Link> · <Link href="/?lang=es" className="hover:text-white">ES</Link> · <Link href="/?lang=de" className="hover:text-white">DE</Link> · <Link href="/?lang=it" className="hover:text-white">IT</Link> · <Link href="/?lang=pt" className="hover:text-white">PT</Link></p>
       </footer>
     </>
   );
